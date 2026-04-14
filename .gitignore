@@ -25,3 +25,8 @@ package-lock.json
 # Misc
 _sass/dist
 assets/js/dist
+
+# Env
+.env
+scripts/node_modules/
+publish.command
