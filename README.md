@@ -22,7 +22,7 @@ bundle exec jekyll serve
 
 ## 글 발행
 
-노션 [Posts DB](https://www.notion.so/3428e6f2770380f98100de95491f1dad)에서 작성 후 Status를 `Ready`로 변경하고 실행:
+노션 Posts DB에서 작성 후 Status를 `Ready`로 변경하고 실행:
 
 ```bash
 node scripts/publish.js
