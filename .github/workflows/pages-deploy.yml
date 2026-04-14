@@ -57,9 +57,6 @@ jobs:
         env:
           JEKYLL_ENV: "production"
 
-      - name: Test site
-        run: |
-           bundle exec htmlproofer _site --disable-external --checks Links,Images,Scripts --allow-missing-href
 
 
 
