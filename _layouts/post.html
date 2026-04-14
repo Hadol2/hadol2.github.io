@@ -1,152 +1,72 @@
 ---
 layout: default
-refactor: true
-panel_includes:
-  - toc
-tail_includes:
-  - related-posts
-  - post-nav
-  - comments
 ---
 
-{% include lang.html %}
+<div class="post-outer">
+  <!-- ── Main content ── -->
+  <article class="post-body">
 
-<article class="px-1">
-  <header>
-    <h1 data-toc-skip>{{ page.title }}</h1>
-    {% if page.description %}
-      <p class="post-desc fw-light mb-4">{{ page.description }}</p>
-    {% endif %}
+    <div class="post-tags-top">
+      {% for tag in page.tags limit: 3 %}
+        <a href="{{ site.baseurl }}/tags/{{ tag | slugify | url_encode }}/" class="hd-tag">{{ tag }}</a>
+      {% endfor %}
+    </div>
 
-    <div class="post-meta text-muted">
-      <!-- published date -->
-      <span>
-        {{ site.data.locales[lang].post.posted }}
-        {% include datetime.html date=page.date tooltip=true lang=lang %}
-      </span>
+    <h1 class="post-title">{{ page.title }}</h1>
 
-      <!-- lastmod date -->
+    <div class="post-meta">
+      <time>{{ page.date | date: "%Y. %m. %d" }}</time>
       {% if page.last_modified_at and page.last_modified_at != page.date %}
-        <span>
-          {{ site.data.locales[lang].post.updated }}
-          {% include datetime.html date=page.last_modified_at tooltip=true lang=lang %}
-        </span>
+        <span>수정 {{ page.last_modified_at | date: "%Y. %m. %d" }}</span>
       {% endif %}
-
-      {% if page.image %}
-        {% capture src %}src="{{ page.image.path | default: page.image }}"{% endcapture %}
-        {% capture class %}class="preview-img{% if page.image.no_bg %}{{ ' no-bg' }}{% endif %}"{% endcapture %}
-        {% capture alt %}alt="{{ page.image.alt | xml_escape | default: "Preview Image" }}"{% endcapture %}
-
-        {% if page.image.lqip %}
-          {%- capture lqip -%}lqip="{{ page.image.lqip }}"{%- endcapture -%}
-        {% endif %}
-
-        <div class="mt-3 mb-3">
-          <img {{ src }} {{ class }} {{ alt }} w="1200" h="630" {{ lqip }}>
-          {%- if page.image.alt -%}
-            <figcaption class="text-center pt-2 pb-2">{{ page.image.alt }}</figcaption>
-          {%- endif -%}
-        </div>
+      {% if page.author %}
+        <span>{{ page.author }}</span>
       {% endif %}
-
-      <div class="d-flex justify-content-between">
-        <!-- author(s) -->
-        <span>
-          {% if page.author %}
-            {% assign authors = page.author %}
-          {% elsif page.authors %}
-            {% assign authors = page.authors %}
-          {% endif %}
-
-          {{ site.data.locales[lang].post.written_by }}
-
-          <em>
-            {% if authors %}
-              {% for author in authors %}
-                {% if site.data.authors[author].url -%}
-                  <a href="{{ site.data.authors[author].url }}">{{ site.data.authors[author].name }}</a>
-                {%- else -%}
-                  {{ site.data.authors[author].name }}
-                {%- endif %}
-                {% unless forloop.last %}{{ '</em>, <em>' }}{% endunless %}
-              {% endfor %}
-            {% else %}
-              <a href="{{ site.social.links[0] }}">{{ site.social.name }}</a>
-            {% endif %}
-          </em>
-        </span>
-
-        <div>
-          <!-- pageviews -->
-          {% if site.pageviews.provider and site.analytics[site.pageviews.provider].id %}
-            <span>
-              <em id="pageviews">
-                <i class="fas fa-spinner fa-spin small"></i>
-              </em>
-              {{ site.data.locales[lang].post.pageview_measure }}
-            </span>
-          {% endif %}
-
-          <!-- read time -->
-          {% include read-time.html content=content prompt=true lang=lang %}
-        </div>
-      </div>
     </div>
-  </header>
 
-  <div class="content">
-    {{ content }}
-  </div>
-
-  <div class="post-tail-wrapper text-muted">
-    <!-- categories -->
-    {% if page.categories.size > 0 %}
-      <div class="post-meta mb-3">
-        <i class="far fa-folder-open fa-fw me-1"></i>
-        {% for category in page.categories %}
-          <a href="{{ site.baseurl }}/categories/{{ category | slugify | url_encode }}/">{{ category }}</a>
-          {%- unless forloop.last -%},{%- endunless -%}
-        {% endfor %}
-      </div>
+    {% if page.image %}
+      <img src="{{ page.image.path | default: page.image | relative_url }}"
+           alt="{{ page.image.alt | default: page.title }}"
+           style="border-radius:8px; margin-bottom:24px; width:100%;">
     {% endif %}
 
-    <!-- tags -->
+    <div class="post-content" id="post-content">
+      {{ content }}
+    </div>
+
+    <!-- Tags footer -->
     {% if page.tags.size > 0 %}
-      <div class="post-tags">
-        <i class="fa fa-tags fa-fw me-1"></i>
+      <div class="post-tail">
         {% for tag in page.tags %}
-          <a
-            href="{{ site.baseurl }}/tags/{{ tag | slugify | url_encode }}/"
-            class="post-tag no-text-decoration"
-          >
-            {{- tag -}}
-          </a>
+          <a href="{{ site.baseurl }}/tags/{{ tag | slugify | url_encode }}/"
+             class="post-tag">{{ tag }}</a>
         {% endfor %}
       </div>
     {% endif %}
 
-    <div
-      class="
-        post-tail-bottom
-        d-flex justify-content-between align-items-center mt-5 pb-2
-      "
-    >
-      <div class="license-wrapper">
-        {% if site.data.locales[lang].copyright.license.template %}
-          {% capture _replacement %}
-        <a href="{{ site.data.locales[lang].copyright.license.link }}">
-          {{ site.data.locales[lang].copyright.license.name }}
-        </a>
-        {% endcapture %}
+  </article>
 
-          {{ site.data.locales[lang].copyright.license.template | replace: ':LICENSE_NAME', _replacement }}
-        {% endif %}
-      </div>
+  <!-- ── TOC sidebar ── -->
+  <aside class="post-toc">
+    <p class="post-toc-title">목차</p>
+    <div id="toc"></div>
+  </aside>
+</div>
 
-      {% include post-sharing.html lang=lang %}
-    </div>
-    <!-- .post-tail-bottom -->
-  </div>
-  <!-- div.post-tail-wrapper -->
-</article>
+<!-- tocbot -->
+<link rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.21.1/tocbot.css"
+  crossorigin="anonymous" referrerpolicy="no-referrer">
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.21.1/tocbot.min.js"
+  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+  tocbot.init({
+    tocSelector: '#toc',
+    contentSelector: '#post-content',
+    headingSelector: 'h2, h3, h4',
+    scrollSmooth: true,
+    scrollSmoothOffset: -72,
+    hasInnerContainers: true
+  });
+</script>

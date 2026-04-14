@@ -1,0 +1,49 @@
+<header class="hd-topnav" aria-label="Top Navigation">
+  <div class="hd-topnav-inner">
+
+    <a href="{{ '/' | relative_url }}" class="hd-logo">{{ site.title }}</a>
+
+    <ul class="hd-nav-links" role="list">
+      <li>
+        <a href="{{ '/' | relative_url }}"
+          {% if page.layout == 'home' %}class="active"{% endif %}>Home</a>
+      </li>
+      {% for tab in site.tabs %}
+        <li>
+          <a href="{{ tab.url | relative_url }}"
+            {% if tab.url == page.url %}class="active"{% endif %}>
+            {{ tab.title | capitalize }}
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+
+    <div class="hd-nav-actions">
+      <button type="button" class="hd-nav-icon" id="search-trigger" aria-label="검색">
+        <i class="fas fa-search fa-fw"></i>
+      </button>
+      <div class="hd-nav-right-group">
+        <button type="button" class="hd-nav-icon hd-mode-btn" id="mode-toggle" aria-label="모드 전환">
+          <span class="hd-mode-label">White</span>
+        </button>
+        <a href="https://github.com/{{ site.github.username }}"
+           class="hd-nav-icon hd-github-link"
+           target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+          <i class="fab fa-github fa-fw"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Search bar -->
+  <div class="hd-search-bar" id="hd-search-bar">
+    <div class="hd-search-field">
+      <i class="fas fa-search fa-fw"></i>
+      <input type="search" id="search-input"
+        placeholder="검색어를 입력하세요..."
+        autocomplete="off" spellcheck="false">
+    </div>
+    <button type="button" class="hd-search-close" id="search-close">닫기</button>
+  </div>
+  <div class="hd-search-results" id="search-results"></div>
+</header>

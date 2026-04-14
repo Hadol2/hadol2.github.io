@@ -1,22 +1,17 @@
 ---
-layout: page
-# All the Tags of posts.
+layout: default
 ---
 
-<div id="tags" class="d-flex flex-wrap mx-xl-2">
-  {% assign tags = '' | split: '' %}
-  {% for t in site.tags %}
-    {% assign tags = tags | push: t[0] %}
-  {% endfor %}
+<div class="list-outer">
+  <h1 class="list-title">Tags</h1>
 
-  {% assign sorted_tags = tags | sort_natural %}
-
-  {% for t in sorted_tags %}
-    <div>
-      <a class="tag" href="{{ t | slugify | url_encode | prepend: '/tags/' | append: '/' | relative_url }}">
-        {{ t -}}
-        <span class="text-muted">{{ site.tags[t].size }}</span>
+  <div class="tags-cloud">
+    {% assign sorted_tags = site.tags | sort %}
+    {% for tag in sorted_tags %}
+      <a href="{{ site.baseurl }}/tags/{{ tag[0] | slugify | url_encode }}/"
+         class="tag-cloud-item">
+        {{ tag[0] }}<sup>{{ tag[1].size }}</sup>
       </a>
-    </div>
-  {% endfor %}
+    {% endfor %}
+  </div>
 </div>
