@@ -85,6 +85,9 @@ sass:
 
 # ── Exclusions ───────────────────────────────────────────────────────────────
 
+include:
+  - googlef6d6807315522fca.html
+
 exclude:
   - "*.gem"
   - "*.gemspec"
