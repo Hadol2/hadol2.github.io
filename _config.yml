@@ -2,7 +2,7 @@ title:       Hadol_s
 tagline:     Hadol_log
 description: Hadol's programming blog — Dev, Projects, PS
 
-url:     "https://jhs9918.github.io"
+url:     "https://hadol2.github.io"
 baseurl: ""
 
 lang:     ko-KR
@@ -24,6 +24,7 @@ avatar: "/assets/img/favicons/profile/avatar.jpg"
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
+  - jekyll-sitemap
   - jekyll-archives
   - jekyll-paginate
 
