@@ -60,6 +60,9 @@ jobs:
 
 
 
+      - name: Remove symlinks
+        run: find "_site${{ steps.pages.outputs.base_path }}" -type l -delete
+
       - name: Upload site artifact
         uses: actions/upload-artifact@v4
         with:
