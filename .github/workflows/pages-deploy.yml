@@ -60,19 +60,9 @@ jobs:
 
 
 
-      - name: Break hard links and symlinks
-        run: |
-          SITE="_site${{ steps.pages.outputs.base_path }}"
-          tar czf /tmp/site.tar.gz -C "$SITE" .
-          rm -rf "$SITE"
-          mkdir -p "$SITE"
-          tar xzf /tmp/site.tar.gz -C "$SITE"
-          rm /tmp/site.tar.gz
-
       - name: Upload site artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-pages-artifact@v3
         with:
-          name: github-pages
           path: "_site${{ steps.pages.outputs.base_path }}"
 
   deploy:
