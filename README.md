@@ -2,7 +2,7 @@
 
 개발 기록, 프로젝트, PS 풀이를 남기는 개인 기술 블로그.
 
-**[→ jhs9918.github.io](https://jhs9918.github.io)**
+**[→ hadol2.github.io](https://hadol2.github.io)**
 
 ---
 
