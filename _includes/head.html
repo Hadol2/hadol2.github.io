@@ -17,6 +17,15 @@
   <link rel="icon" href="{{ site.avatar | relative_url }}">
 {% endif %}
 
+<!-- Google Analytics GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KQ2L9X02HK"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-KQ2L9X02HK');
+</script>
+
 <!-- Prevent dark-mode flash -->
 <script>
   (function(){
