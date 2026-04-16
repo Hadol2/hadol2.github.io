@@ -44,6 +44,56 @@ layout: default
 </div>
 
 <!-- ══════════════════════════════════════════════════════════════
+     Featured Projects
+════════════════════════════════════════════════════════════════ -->
+{% assign featured_projects = site.data.projects | where: "featured", true %}
+{% if featured_projects.size > 0 %}
+<div class="hd-section">
+  <div class="hd-section-header">
+    <p class="hd-section-label">Projects</p>
+    <a href="{{ '/projects/' | relative_url }}" class="hd-section-more">모든 프로젝트 →</a>
+  </div>
+
+  <div class="hd-grid">
+    {% for proj in featured_projects limit: 3 %}
+      <div class="hd-proj-card">
+        <div class="hd-proj-header">
+          <span class="hd-proj-name">{{ proj.name }}</span>
+          {% if proj.status == "done" %}
+            <span class="hd-proj-status done">완료</span>
+          {% elsif proj.status == "wip" %}
+            <span class="hd-proj-status wip">진행 중</span>
+          {% endif %}
+        </div>
+
+        <p class="hd-proj-desc">{{ proj.desc }}</p>
+
+        <div class="hd-proj-tags">
+          {% for tag in proj.tags %}
+            <span class="hd-tag">{{ tag }}</span>
+          {% endfor %}
+        </div>
+
+        <div class="hd-proj-links">
+          {% if proj.links.github %}
+            <a href="{{ proj.links.github }}" class="hd-proj-link primary"
+               target="_blank" rel="noopener noreferrer">GitHub</a>
+          {% endif %}
+          {% if proj.links.demo %}
+            <a href="{{ proj.links.demo }}" class="hd-proj-link"
+               target="_blank" rel="noopener noreferrer">라이브 데모</a>
+          {% endif %}
+          {% if proj.links.post %}
+            <a href="{{ proj.links.post | relative_url }}" class="hd-proj-link">개발기 →</a>
+          {% endif %}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+{% endif %}
+
+<!-- ══════════════════════════════════════════════════════════════
      Post Grid
 ════════════════════════════════════════════════════════════════ -->
 <div class="hd-section">

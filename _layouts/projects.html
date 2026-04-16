@@ -1,0 +1,56 @@
+---
+layout: default
+---
+
+{% assign all_projects = site.data.projects %}
+{% assign years = all_projects | map: "year" | uniq | sort | reverse %}
+
+<div class="hd-proj-page">
+  <h1 class="hd-proj-page-title">Projects</h1>
+  <p class="hd-proj-page-desc">{{ page.description | default: "만들어온 것들" }}</p>
+
+  <div class="hd-tl">
+    {% for year in years %}
+      {% assign year_projects = all_projects | where: "year", year %}
+      <div class="hd-tl-group">
+        <div class="hd-tl-year">{{ year }}</div>
+        <div class="hd-tl-cards">
+          {% for proj in year_projects %}
+            <div class="hd-proj-card">
+              <div class="hd-proj-header">
+                <span class="hd-proj-name">{{ proj.name }}</span>
+                {% if proj.status == "done" %}
+                  <span class="hd-proj-status done">완료</span>
+                {% elsif proj.status == "wip" %}
+                  <span class="hd-proj-status wip">진행 중</span>
+                {% endif %}
+              </div>
+
+              <p class="hd-proj-desc">{{ proj.desc }}</p>
+
+              <div class="hd-proj-tags">
+                {% for tag in proj.tags %}
+                  <span class="hd-tag">{{ tag }}</span>
+                {% endfor %}
+              </div>
+
+              <div class="hd-proj-links">
+                {% if proj.links.github %}
+                  <a href="{{ proj.links.github }}" class="hd-proj-link primary"
+                     target="_blank" rel="noopener noreferrer">GitHub</a>
+                {% endif %}
+                {% if proj.links.demo %}
+                  <a href="{{ proj.links.demo }}" class="hd-proj-link"
+                     target="_blank" rel="noopener noreferrer">라이브 데모</a>
+                {% endif %}
+                {% if proj.links.post %}
+                  <a href="{{ proj.links.post | relative_url }}" class="hd-proj-link">개발기 →</a>
+                {% endif %}
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
