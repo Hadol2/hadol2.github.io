@@ -29,10 +29,6 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Setup Pages
-        id: pages
-        uses: actions/configure-pages@v4
-
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
